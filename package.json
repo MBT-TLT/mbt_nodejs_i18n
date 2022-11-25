@@ -1,0 +1,16 @@
+{
+  "name": "mbt_-nodejs_i18n",
+  "version": "1.0.0",
+  "description": "a lightweight Nodejs i18n plug-in developed by the MBT_TLT team",
+  "main": "main.js",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/mbt_tlt/mbt_-nodejs_i18n.git"
+  },
+  "author": "KindllySatan",
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "os-locale": "^6.0.2"
+  }
+}
