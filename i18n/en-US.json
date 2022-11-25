@@ -1,0 +1,6 @@
+{
+    "SyntaxError-i18nGuard-1": "The specified ${ language } i18n file does not exist",
+    "SyntaxError-i18nGuard-2": "The specified ${ language } i18n file does not contain the specified identifier ${ key }",
+    "ReferenceError-regReplace": "There is no given text replacement keyword ${ replaceKey }",
+    "test": "test"
+}

@@ -1,0 +1,6 @@
+{
+    "SyntaxError-i18nGuard-1": "不存在指定的 ${ language } i18n 文件",
+    "SyntaxError-i18nGuard-2": "指定的 ${ language } i18n 文件中不包含指定标识 ${ key }",
+    "ReferenceError-regReplace": "不存在给定文本替换关键字 ${ replaceKey }",
+    "test": "测试"
+}
