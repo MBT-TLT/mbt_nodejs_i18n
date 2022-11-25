@@ -1,5 +1,5 @@
 {
-  "name": "@mbt_tlt/mbt_nodejs_i18n",
+  "name": "mbt_nodejs_i18n",
   "version": "1.0.0",
   "description": "a lightweight Nodejs i18n plug-in developed by the MBT_TLT team",
   "main": "main.js",

@@ -6,4 +6,4 @@ dist-ssr
 /.idea
 /build
 package-lock.json
-*.npmignore
+.gitignore
