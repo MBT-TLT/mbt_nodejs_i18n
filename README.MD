@@ -2,13 +2,13 @@
 A lightweight Nodejs i18n plug-in developed by the MBT_TLT team
 
 # Light
-- Lightweight, this plug-in only accounts for xxx kb
+- Lightweight, this core of plug-in only about 18 kb
 - supports interpolated text i18n
 - You can actively reset i18n objects while the project running
 
 # Install
 ```shell
-npm install -s @mbt_tlt/mbt_nodejs_i18n
+npm install -s mbt_nodejs_i18n
 ```
 
 # Usage

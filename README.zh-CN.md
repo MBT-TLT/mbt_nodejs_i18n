@@ -2,7 +2,7 @@
 一款由 MBT_TLT 团队开发的轻量化 NodeJS i18n 插件
 
 # 亮点
- - 轻量化, 该插件核心仅占约 6 kb
+ - 轻量化, 该插件核心仅占约 18 kb
  - 支持插值文本的 i18n
  - 可在项目运行时主动重置 i18n 对象
 
@@ -12,7 +12,7 @@
 
 # 安装
 ```shell
-npm install -s @mbt_tlt/mbt_nodejs_i18n
+npm install -s mbt_nodejs_i18n
 ```
 
 # 使用方法
