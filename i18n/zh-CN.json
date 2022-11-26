@@ -1,6 +1,14 @@
 {
     "SyntaxError-i18nGuard-1": "不存在指定的 ${ language } i18n 文件",
     "SyntaxError-i18nGuard-2": "指定的 ${ language } i18n 文件中不包含指定标识 ${ key }",
+
     "ReferenceError-regReplace": "不存在给定文本替换关键字 ${ replaceKey }",
-    "test": "测试"
+
+    "testFunc-1": "欢迎运行 MBT_Nodejs_i18n 的测试脚本! o((>ω< ))o",
+    "testFunc-2": "我们现在提供了 ${ num } 个相关测试用例",
+    "testFunc-3": "测试集: ${ testDataSet }",
+    "testFunc-sorry": "非常抱歉, 我们暂时还没有提供 ${ language } 相关的测试数据, 本次测试结果将默认以 en-US 为准",
+
+    "test-1": "这是一段测试文本",
+    "test-2": "这是一段带有 ${ key } 的测试文本"
 }

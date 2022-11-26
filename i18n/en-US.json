@@ -1,6 +1,14 @@
 {
     "SyntaxError-i18nGuard-1": "The specified ${ language } i18n file does not exist",
     "SyntaxError-i18nGuard-2": "The specified ${ language } i18n file does not contain the specified identifier ${ key }",
+
     "ReferenceError-regReplace": "There is no given text replacement keyword ${ replaceKey }",
-    "test": "test"
+
+    "testFunc-1": "Welcome to run the MBT_Nodejs_i18n test script! :)",
+    "testFunc-2": "We now have ${ num } test cases prepared.",
+    "testFunc-3": "Test set: ${ testDataSet }",
+    "testFunc-sorry": "Sorry, we haven't provided the test data related to ${ language } yet, and the test results will be subject to en US by default.",
+
+    "test-1": "This is a test text",
+    "test-2": "This is a piece of test text with ${ key }"
 }
