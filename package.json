@@ -12,7 +12,7 @@
     "url": "https://github.com/MBT-TLT/mbt_nodejs_i18n.git"
   },
   "author": "KindllySatan",
-  "license": "AGPL-3.0",
+  "license": "Apache-2.0",
   "dependencies": {
     "os-locale": "^6.0.2",
     "ks_unit_test_esm": "^1.0.0"
