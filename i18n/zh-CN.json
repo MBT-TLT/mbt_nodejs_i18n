@@ -4,6 +4,12 @@
 
     "ReferenceError-regReplace": "不存在给定文本替换关键字 ${ replaceKey }",
 
+    "createI18File-1": "正在创建 ${ language }.json 文件",
+    "createI18File-success": "创建 ${ language }.json 成功",
+
+    "i18nCreateCommand-failed": "${ folderPath } 路径 i18n 文件夹创建失败, 失败原因：${ err }",
+    "i18nCreateCommand-success": "${ folderPath } 路径 i18n 文件夹创建成功 !",
+
     "testFunc-1": "欢迎运行 MBT_Nodejs_i18n 的测试脚本! o((>ω< ))o",
     "testFunc-2": "我们现在提供了 ${ num } 个相关测试用例",
     "testFunc-3": "测试集: ${ testDataSet }",
