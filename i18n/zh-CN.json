@@ -3,12 +3,20 @@
     "SyntaxError-i18nGuard-2": "指定的 ${ language } i18n 文件中不包含指定标识 ${ key }",
 
     "ReferenceError-regReplace": "不存在给定文本替换关键字 ${ replaceKey }",
+    "ReferenceError-i18nCreateCommand_guard": "folderPath [${ folderPath }] 路径不存在!",
+    "ReferenceError-i18nInitCommand_guard": "当前路径下已存在 ${ projectName } 文件夹且该文件夹非空!",
+
+    "RangeError-i18nCreateCommand_guard": "targetLanguage [${ language }] 不应该与 ownLanguage 一致!",
+    "RangeError-i18nInitCommand_guard": "projectName [${ projectName }] 包含 url-unfriendly 字符 [${ char }]!",
 
     "createI18File-1": "正在创建 ${ language }.json 文件",
     "createI18File-success": "创建 ${ language }.json 成功",
 
     "i18nCreateCommand-failed": "${ folderPath } 路径 i18n 文件夹创建失败, 失败原因：${ err }",
     "i18nCreateCommand-success": "${ folderPath } 路径 i18n 文件夹创建成功 !",
+
+    "i18nInitCommand-failed": "project[${ projectName }] 初始化失败, 原因: ${ err }",
+    "i18nInitCommand-success": "project[${ projectName }] 初始化成功 !",
 
     "testFunc-1": "欢迎运行 MBT_Nodejs_i18n 的测试脚本! o((>ω< ))o",
     "testFunc-2": "我们现在提供了 ${ num } 个相关测试用例",
