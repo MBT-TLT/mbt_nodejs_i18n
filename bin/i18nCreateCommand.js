@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import child_process from "child_process";
 import { i18n } from "../main.js";
 
 
@@ -115,7 +116,7 @@ export const i18nCreateCommand = function (
             err: err.message
         }));
 
-        throw err;
+        process.exit();
     }
 
     // detects whether a folder named i18n exists on the given path,
@@ -131,6 +132,23 @@ export const i18nCreateCommand = function (
     // arguments[1] - targetLanguage, arguments[2] - ownLanguage
     createI18File(i18nDirPath, arguments[1]);
     createI18File(i18nDirPath, arguments[2]);
+
+    try {
+        // if package.json does not exist, run npm init-y under the given path
+        if (!fs.existsSync(path.resolve(arguments[0], './package.json'))) {
+            child_process.execSync(`cd ${ arguments[0] } & npm init -y`);
+        }
+        // add mbt_nodejs_i18n to the running dependency of the project under the current path
+        child_process.execSync(`cd ${ arguments[0] } & npm install -s mbt_nodejs_i18n`);
+    } catch (err) {
+        // console fail
+        console.log(i18n('i18nCreateCommand-failed', {
+            folderPath: arguments[0],
+            err: err.message
+        }));
+
+        process.exit();
+    }
 
     // console success, arguments[0] - folderPath
     console.log(i18n('i18nCreateCommand-success', {
