@@ -93,11 +93,13 @@ const i18nInitCommand_guard = function (params) {
  * @const
  * @function
  * @param { string } projectName - i18n project name
+ * @param { string } [targetLanguage = 'en-US'] - target language that needs to be translated
  * @param { Object } [extraParamObj = {}] - extra parameters
  * @param { Command } [triggerCommand = Command('create')] - trigger command object
  * */
 export const i18nInitCommand = function (
     projectName,
+    targetLanguage,
     extraParamObj,
     triggerCommand
 ) {
@@ -129,10 +131,10 @@ export const i18nInitCommand = function (
 
     // after moving to the projectName folder,
     // execute 'npm init -y', 'mbt-i18n create ./${ projectName }' and return to the root folder,
-    // arguments[0] - projectName
+    // arguments[0] - projectName, arguments[1] - targetLanguage
     try {
         child_process.execSync(`cd ./${ arguments[0] } & npm init -y`);
-        child_process.execSync(`mbt-i18n create ./${ arguments[0] } & cd ../`);
+        child_process.execSync(`mbt-i18n create ./${ arguments[0] } ${ arguments[1] } & cd ../`);
     } catch (err) {
         // console fail
         console.log(i18n('i18nInitCommand-failed', {

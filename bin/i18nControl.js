@@ -36,6 +36,7 @@ const i18nControl = function () {
         .command("init")
         .description("init project")
         .argument('<projectName>', 'project Name')
+        .argument('[targetLanguage]', 'target language that needs to be translated', 'en-US')
         .action(i18nInitCommand);
 
     // parse the process.argv and running command
