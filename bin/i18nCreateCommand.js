@@ -60,7 +60,8 @@ const i18nCreateCommand_unifiedParse = function (params) {
  * @function
  * @param { IArguments } params - params of i18nCreateCommand
  * @throws { ReferenceError } - throw when the folderPath path does not exist
- * @throws { RangeError } - thrown when the given targetLanguage is consistent with ownLanguage
+ * @throws { RangeError } - 1. thrown when the given targetLanguage is consistent with ownLanguage
+ * @throws { RangeError } - 2. throw when the projectName contains url-unfriendly characters
  * */
 const i18nCreateCommand_guard = function (params) {
     // Determine whether folderPath exists, and if not, throw an error
@@ -75,8 +76,20 @@ const i18nCreateCommand_guard = function (params) {
     // Determine whether targetLanguage and ownLanguage are the same, and if so, throw a prompt
     // params[1] - targetLanguage, params[2] - ownLanguage
     if (params[1] === params[2]) {
-        throw RangeError(i18n('RangeError-i18nCreateCommand_guard', {
+        throw RangeError(i18n('RangeError-i18nCreateCommand_guard-1', {
             language: params[1]
+        }));
+    }
+
+    // determine whether there are url-unfriendly characters in projectName,
+    // that is characters other than English characters, numbers, underline(_) and separator(-),
+    // projectName - params[0]
+    const folderName = path.parse(params[0]).name;
+    const urlNotFriendlyReg = new RegExp(/[^0-9a-zA-Z\-_]+/);
+    if (urlNotFriendlyReg.test(folderName)) {
+        throw RangeError(i18n('RangeError-i18nCreateCommand_guard-2', {
+            projectName: folderName,
+            char: urlNotFriendlyReg.exec(folderName)[0]
         }));
     }
 }
