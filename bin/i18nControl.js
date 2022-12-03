@@ -4,6 +4,7 @@ import fs from "fs";
 import { Command } from "commander";
 import { osLocaleSync } from "os-locale";
 import { i18nCreateCommand } from "./i18nCreateCommand.js";
+import { i18nInitCommand } from "./i18nInitCommand.js";
 
 
 /**
@@ -29,6 +30,13 @@ const i18nControl = function () {
         .argument('[targetLanguage]', 'target language that needs to be translated', 'en-US')
         .argument('[ownLanguage]', 'own language', osLocaleSync() || 'zh-CN')
         .action(i18nCreateCommand);
+
+    // initialize i18n project file command
+    totalControl
+        .command("init")
+        .description("init project")
+        .argument('<projectName>', 'project Name')
+        .action(i18nInitCommand);
 
     // parse the process.argv and running command
     totalControl.parse(process.argv);
