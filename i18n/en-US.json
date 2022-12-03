@@ -5,8 +5,7 @@
     "ReferenceError-regReplace": "There is no given text replacement keyword ${ replaceKey }",
     "ReferenceError-i18nCreateCommand_guard": "FolderPath [${ folderPath }] path does not exist!",
 
-    "RangeError-i18nCreateCommand_guard-1": "TargetLanguage [${ language }] should not be consistent with ownLanguage!",
-    "RangeError-i18nCreateCommand_guard-2": "projectName [${ projectName }] contains url-unfriendly characters [${ char }]!",
+    "RangeError-i18nCreateCommand_guard": "projectName [${ projectName }] contains url-unfriendly characters [${ char }]!",
 
     "createI18File-1": "Creating ${ language }.json file",
     "createI18File-success": "Successful creation of ${ language }.json",

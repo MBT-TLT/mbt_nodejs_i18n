@@ -5,8 +5,7 @@
     "ReferenceError-regReplace": "不存在给定文本替换关键字 ${ replaceKey }",
     "ReferenceError-i18nCreateCommand_guard": "folderPath [${ folderPath }] 路径不存在!",
 
-    "RangeError-i18nCreateCommand_guard-1": "targetLanguage [${ language }] 不应该与 ownLanguage 一致!",
-    "RangeError-i18nCreateCommand_guard-2": "projectName [${ projectName }] 包含 url-unfriendly 字符 [${ char }]!",
+    "RangeError-i18nCreateCommand_guard": "projectName [${ projectName }] 包含 url-unfriendly 字符 [${ char }]!",
 
     "createI18File-1": "正在创建 ${ language }.json 文件",
     "createI18File-success": "创建 ${ language }.json 成功",
