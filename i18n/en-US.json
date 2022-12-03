@@ -4,19 +4,15 @@
 
     "ReferenceError-regReplace": "There is no given text replacement keyword ${ replaceKey }",
     "ReferenceError-i18nCreateCommand_guard": "FolderPath [${ folderPath }] path does not exist!",
-    "ReferenceError-i18nInitCommand_guard": "The ${ projectName } folder already exists under the current path and is not empty!",
 
-    "RangeError-i18nCreateCommand_guard": "TargetLanguage [${ language }] should not be consistent with ownLanguage!",
-    "RangeError-i18nInitCommand_guard": "projectName [${ projectName }] contains url-unfriendly characters [${ char }]!",
+    "RangeError-i18nCreateCommand_guard-1": "TargetLanguage [${ language }] should not be consistent with ownLanguage!",
+    "RangeError-i18nCreateCommand_guard-2": "projectName [${ projectName }] contains url-unfriendly characters [${ char }]!",
 
     "createI18File-1": "Creating ${ language }.json file",
     "createI18File-success": "Successful creation of ${ language }.json",
 
     "i18nCreateCommand-fail": "${ folderPath } path i18n folder created failed, reason: ${ err }",
     "i18nCreateCommand-success": "${ folderPath } path i18n folder created successfully !",
-
-    "i18nInitCommand-failed": "Initialization of project [${ projectName }] failed because of ${ err }",
-    "i18nInitCommand-success": "Project [${ projectName }] initialized successfully!",
 
     "testFunc-1": "Welcome to run the MBT_Nodejs_i18n test script! :)",
     "testFunc-2": "We now have ${ num } test cases prepared.",
