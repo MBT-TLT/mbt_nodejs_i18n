@@ -60,8 +60,7 @@ const i18nCreateCommand_unifiedParse = function (params) {
  * @function
  * @param { IArguments } params - params of i18nCreateCommand
  * @throws { ReferenceError } - throw when the folderPath path does not exist
- * @throws { RangeError } - 1. thrown when the given targetLanguage is consistent with ownLanguage
- * @throws { RangeError } - 2. throw when the projectName contains url-unfriendly characters
+ * @throws { RangeError } - throw when the projectName contains url-unfriendly characters
  * */
 const i18nCreateCommand_guard = function (params) {
     // Determine whether folderPath exists, and if not, throw an error
@@ -73,21 +72,13 @@ const i18nCreateCommand_guard = function (params) {
         }));
     }
 
-    // Determine whether targetLanguage and ownLanguage are the same, and if so, throw a prompt
-    // params[1] - targetLanguage, params[2] - ownLanguage
-    if (params[1] === params[2]) {
-        throw RangeError(i18n('RangeError-i18nCreateCommand_guard-1', {
-            language: params[1]
-        }));
-    }
-
     // determine whether there are url-unfriendly characters in projectName,
     // that is characters other than English characters, numbers, underline(_) and separator(-),
     // projectName - params[0]
     const folderName = path.parse(params[0]).name;
     const urlNotFriendlyReg = new RegExp(/[^0-9a-zA-Z\-_]+/);
     if (urlNotFriendlyReg.test(folderName)) {
-        throw RangeError(i18n('RangeError-i18nCreateCommand_guard-2', {
+        throw RangeError(i18n('RangeError-i18nCreateCommand_guard', {
             projectName: folderName,
             char: urlNotFriendlyReg.exec(folderName)[0]
         }));
@@ -101,15 +92,13 @@ const i18nCreateCommand_guard = function (params) {
  * @const
  * @function
  * @param { string } [folderPath = './'] - i18n folder path
- * @param { string } [targetLanguage = 'en-US'] - target language that needs to be translated
- * @param { string } [ownLanguage = osLocaleSync() || 'zh-CN'] - own Language
+ * @param { Array<string> } [languageArr = [osLocaleSync() || 'en-US']] - i18n language sign array
  * @param { Object } [extraParamObj = {}] - extra parameters
  * @param { Command } [triggerCommand = Command('create')] - trigger command object
  * */
 export const i18nCreateCommand = function (
     folderPath,
-    targetLanguage,
-    ownLanguage,
+    languageArr,
     extraParamObj,
     triggerCommand
 ) {
@@ -142,9 +131,10 @@ export const i18nCreateCommand = function (
 
     // check whether the i18n json file corresponding to targetLanguage and ownLanguage exists
     // ignore if it exists, create if it doesn't,
-    // arguments[1] - targetLanguage, arguments[2] - ownLanguage
-    createI18File(i18nDirPath, arguments[1]);
-    createI18File(i18nDirPath, arguments[2]);
+    // arguments[1] - languageArr
+    arguments[1].forEach((language) => {
+        createI18File(i18nDirPath, language);
+    });
 
     try {
         // if package.json does not exist, run npm init-y under the given path

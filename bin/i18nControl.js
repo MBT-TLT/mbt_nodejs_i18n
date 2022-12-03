@@ -22,8 +22,7 @@ const i18nControl = function () {
         .command('create')
         .description('Create the i18n folder')
         .argument('[folderPath]', 'i18n folder path', path.resolve('./'))
-        .argument('[targetLanguage]', 'target language that needs to be translated', 'en-US')
-        .argument('[ownLanguage]', 'own language', osLocaleSync() || 'zh-CN')
+        .argument('[languageArr...]', 'i18n language sign array', [osLocaleSync() || 'en-US'])
         .action(i18nCreateCommand);
 
     // parse the process.argv and running command
