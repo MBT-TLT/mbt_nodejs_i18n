@@ -58,19 +58,25 @@ const i18nCreateCommand_unifiedParse = function (params) {
  * @const
  * @function
  * @param { IArguments } params - params of i18nCreateCommand
+ * @throws { ReferenceError } - throw when the folderPath path does not exist
+ * @throws { RangeError } - thrown when the given targetLanguage is consistent with ownLanguage
  * */
 const i18nCreateCommand_guard = function (params) {
     // Determine whether folderPath exists, and if not, throw an error
     // params[0] - folderPath
     const hasFolder = fs.existsSync(path.resolve(params[0]));
     if (!hasFolder) {
-        throw ReferenceError(`folderPath [${ params[0] }] 路径不存在!`);
+        throw ReferenceError(i18n('ReferenceError-i18nCreateCommand_guard', {
+            folderPath: params[0]
+        }));
     }
 
     // Determine whether targetLanguage and ownLanguage are the same, and if so, throw a prompt
     // params[1] - targetLanguage, params[2] - ownLanguage
     if (params[1] === params[2]) {
-        throw RangeError(`targetLanguage [${ params[1] }] 不应该与 ownLanguage 一致!`);
+        throw RangeError(i18n('RangeError-i18nCreateCommand_guard', {
+            language: params[1]
+        }));
     }
 }
 
@@ -99,33 +105,36 @@ export const i18nCreateCommand = function (
         param = unifiedParses[index];
     });
 
-    // function guard
+    // function guard, arguments[0] - folderPath
     try {
         i18nCreateCommand_guard(arguments);
     } catch (err) {
         // console fail
         console.log(i18n('i18nCreateCommand-failed', {
-            folderPath: folderPath,
-            err: err
+            folderPath: arguments[0],
+            err: err.message
         }));
+
+        throw err;
     }
 
     // detects whether a folder named i18n exists on the given path,
-    // and creates a folder if it does not exist
-    const i18nDirPath = path.resolve(folderPath, './i18n');
+    // and creates a folder if it does not exist, arguments[0] - folderPath
+    const i18nDirPath = path.resolve(arguments[0], './i18n');
     const hasI18nDir = fs.existsSync(i18nDirPath);
     if (!hasI18nDir) {
         fs.mkdirSync(i18nDirPath);
     }
 
     // check whether the i18n json file corresponding to targetLanguage and ownLanguage exists
-    // ignore if it exists, create if it doesn't
-    createI18File(i18nDirPath, targetLanguage);
-    createI18File(i18nDirPath, ownLanguage);
+    // ignore if it exists, create if it doesn't,
+    // arguments[1] - targetLanguage, arguments[2] - ownLanguage
+    createI18File(i18nDirPath, arguments[1]);
+    createI18File(i18nDirPath, arguments[2]);
 
-    // console success
+    // console success, arguments[0] - folderPath
     console.log(i18n('i18nCreateCommand-success', {
-        folderPath: folderPath
+        folderPath: arguments[0]
     }));
 }
 
