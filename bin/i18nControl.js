@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import path from "path";
-import fs from "fs";
 import { Command } from "commander";
 import { osLocaleSync } from "os-locale";
 import { i18nCreateCommand } from "./i18nCreateCommand.js";
@@ -14,13 +13,10 @@ import { i18nInitCommand } from "./i18nInitCommand.js";
  * @function
  * */
 const i18nControl = function () {
-    // read package.json as a JSON
-    const baseConfig = JSON.parse(fs.readFileSync(path.resolve('./package.json')).toString());
-
     // new a Command and set the project name, description and version
-    const totalControl = new Command(baseConfig.name)
-        .description(baseConfig.description)
-        .version(baseConfig.version);
+    const totalControl = new Command('mbt-i18n')
+        .description('a lightweight Nodejs i18n plug-in developed by the MBT_TLT team')
+        .version('1.0.2');
 
     // create i18n folder command
     totalControl
