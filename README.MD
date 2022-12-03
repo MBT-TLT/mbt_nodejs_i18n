@@ -5,11 +5,63 @@ A lightweight Nodejs i18n plug-in developed by the MBT_TLT team
 - Lightweight, this core of plug-in only about 18 kb
 - supports interpolated text i18n
 - You can actively reset i18n objects while the project running
+- Global CLI command to quickly build the i18n base file
+
+# Dev Log
+- v1.0.0
+    - Complete mbt_nodejs_i18n core development
+- v1.0.1
+    - Update related test code
+- v1.0.2
+    - Update CLI related features
+
+# Feature
+- Compatible with CommonJS
+- Optimize the i18nInit logic to load and parse only the i18n files that make the fix
 
 # Install
 ```shell
+# use all functions of MBT_Nodejs_i18n
+npm install -g mbt_nodejs_i18n
+# just use core functions of MBT_Nodejs_i18n
 npm install -s mbt_nodejs_i18n
 ```
+
+# CLI Commands
+When you install mbt_nodejs_i18n globally, you will be able to run the given instructions as mbt-i18n for CLI Controller:
+
+## 1、create - Create i18n basic files
+```shell
+mbt-i18n create [folderPath] [languageArr...]
+# folderPath      i18n filePath (default: `${ path.resolve('./') }`)
+# languageArr     An array of target language flags to be translated (default: [`${ osLocaleSync() || 'en-US' }`]) osLocaleSync() is mean get os language
+```
+This directive will create an i18n folder and all i18n json files given by languageArr under the given folderPath (default is the current path).
+
+If the folderPath tail path node is i18n, the i18n json file will be created directly under that path.
+
+<span style="color: orange">[note: the tail node of a given folderPath path should ensure that it conforms to the npm package naming convention]</span>
+
+The command will also run the following child commands:
+- npm init -y `Execute this subinstruction only if package.json does not exist in a given path`
+- npm install -s mbt_nodejs_i18n `Add mbt_nodejs_i18n to the running dependency of the project under the given path`
+
+Example:
+```shell
+# 1. Create an i18n folder and related default i18n files under the current path (ignore if they exist)
+# 2. Choose to execute 'npm init -y' based on whether there is a package.json file in the current path
+# 3. Run 'npm install -s mbt_nodejs_i18n' to introduce the latest package of mbt_nodejs_i18n
+mbt-i18n create
+
+# 1. Create an i18n folder and related default i18n files under the 'F:/exampleI18n' folder (ignore if they exist)
+# As above...
+mbt-i18n create F:/exampleI18n
+
+# 1. Create i18n folders and 'zh-CN.json' and 'en-US.json' i18n files under the 'F:/exampleI18n' folder (ignore if they exist)
+# As above...
+mbt-i18n create F:/exampleI18n zh-CN en-US
+```
+
 
 # Usage
 ## 0. import
@@ -17,11 +69,11 @@ You can choose to import and use MBT_Nodejs_i18n using the following methods
 
 1.For ES6
 ```javascript
-import i18n from '@mbt_tlt/mbt_nodejs_i18n'
+import i18n from 'mbt_nodejs_i18n'
 ```
 or
 ```javascript
-import { i18n } from '@mbt_tlt/mbt_nodejs_i18n'
+import { i18n } from 'mbt_nodejs_i18n'
 ```
 2.For NodeJS
 
@@ -56,7 +108,7 @@ If the i18n related files of your project are stored in the i18n folder under th
 If your i18n-related files are not stored in the i18n folder in the root directory of your project, you need to actively call the i18nInit function before using i18n and pass in the storage path of your project i18n files, like this:
 ```javascript
 // Suppose the i18n file is stored in the path 'D://i18n'
-import { i18nInit } from '@mbt_tlt/mbt_nodejs_i18n';
+import { i18nInit } from 'mbt_nodejs_i18n';
 
 // you code ...
 i18nInit('D://i18n');
