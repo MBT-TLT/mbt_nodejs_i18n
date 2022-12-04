@@ -3,6 +3,7 @@
     "SyntaxError-i18nGuard-2": "指定的 ${ language } i18n 文件中不包含指定标识 ${ key }",
 
     "ReferenceError-regReplace": "不存在给定文本替换关键字 ${ replaceKey }",
+    "ReferenceError-getI18nTable": "不存在给定 i18n 库虚拟表关键字 ${ tableKey }",
     "ReferenceError-i18nCreateCommand_guard": "folderPath [${ folderPath }] 路径不存在!",
 
     "RangeError-i18nCreateCommand_guard": "projectName [${ projectName }] 包含 url-unfriendly 字符 [${ char }]!",
