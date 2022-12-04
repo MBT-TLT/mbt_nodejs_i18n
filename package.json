@@ -1,6 +1,6 @@
 {
   "name": "mbt_nodejs_i18n",
-  "version": "1.0.2.1",
+  "version": "1.0.3",
   "description": "a lightweight Nodejs i18n plug-in developed by the MBT_TLT team",
   "main": "main.js",
   "type": "module",
