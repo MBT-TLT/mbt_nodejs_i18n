@@ -14,7 +14,7 @@ A lightweight Nodejs i18n plug-in developed by the MBT_TLT team
   - Update related test code
 - v1.0.2(deprecate)
   - Update CLI related features
-- v1.0.2.1
+- v1.0.3
   - Fixed a fatal bug that caused infinite callbacks by calling its own i18n in a path other than the package ontology and where no associated i18n file existed
   - New i18n built-in library design, currently only used to supply mbt_nodejs_i18n itself to prevent the occurrence of infinite callback exception use, future version consider to provide some common statement translation
   - i18n function added isUseBuildInLibrary Optional argument, which defaults to false, to specify whether the current statement uses the i18n built-in library or the project i18n library
