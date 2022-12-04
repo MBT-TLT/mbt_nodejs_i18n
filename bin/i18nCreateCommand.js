@@ -2,7 +2,15 @@ import fs from "fs";
 import path from "path";
 import child_process from "child_process";
 import { i18n } from "../main.js";
+import { osLocaleSync } from "os-locale";
 
+
+/**
+ * userLanguage
+ *
+ * @type String
+ * */
+const userLanguage = osLocaleSync() || 'en-US';
 
 /**
  * createI18File
@@ -19,7 +27,7 @@ const createI18File = function (baseBath, language) {
     if (!hasTargetLanguageFile) {
         console.log(i18n('createI18File-1', {
             language: language
-        }));
+        }, userLanguage, true));
 
         const fileWS = fs.createWriteStream(languageFilePath);
         fileWS.write('{\r\n\t"key": "value"\r\n}\r\n');
@@ -27,7 +35,7 @@ const createI18File = function (baseBath, language) {
 
         console.log(i18n('createI18File-success', {
             language: language
-        }));
+        }, userLanguage, true));
     }
 }
 
@@ -69,7 +77,7 @@ const i18nCreateCommand_guard = function (params) {
     if (!hasFolder) {
         throw ReferenceError(i18n('ReferenceError-i18nCreateCommand_guard', {
             folderPath: params[0]
-        }));
+        }, userLanguage, true));
     }
 
     // determine whether there are url-unfriendly characters in projectName,
@@ -81,7 +89,7 @@ const i18nCreateCommand_guard = function (params) {
         throw RangeError(i18n('RangeError-i18nCreateCommand_guard', {
             projectName: folderName,
             char: urlNotFriendlyReg.exec(folderName)[0]
-        }));
+        }, userLanguage, true));
     }
 }
 
@@ -116,7 +124,24 @@ export const i18nCreateCommand = function (
         console.log(i18n('i18nCreateCommand-failed', {
             folderPath: arguments[0],
             err: err.message
-        }));
+        }, userLanguage, true));
+
+        process.exit();
+    }
+
+    try {
+        // if package.json does not exist, run npm init-y under the given path
+        if (!fs.existsSync(path.resolve(arguments[0], './package.json'))) {
+            child_process.execSync(`cd ${ arguments[0] } & npm init -y`);
+        }
+        // add mbt_nodejs_i18n to the running dependency of the project under the current path
+        child_process.execSync(`cd ${ arguments[0] } & npm install -s mbt_nodejs_i18n`);
+    } catch (err) {
+        // console fail
+        console.log(i18n('i18nCreateCommand-failed', {
+            folderPath: arguments[0],
+            err: err.message
+        }, userLanguage, true));
 
         process.exit();
     }
@@ -136,27 +161,10 @@ export const i18nCreateCommand = function (
         createI18File(i18nDirPath, language);
     });
 
-    try {
-        // if package.json does not exist, run npm init-y under the given path
-        if (!fs.existsSync(path.resolve(arguments[0], './package.json'))) {
-            child_process.execSync(`cd ${ arguments[0] } & npm init -y`);
-        }
-        // add mbt_nodejs_i18n to the running dependency of the project under the current path
-        child_process.execSync(`cd ${ arguments[0] } & npm install -s mbt_nodejs_i18n`);
-    } catch (err) {
-        // console fail
-        console.log(i18n('i18nCreateCommand-failed', {
-            folderPath: arguments[0],
-            err: err.message
-        }));
-
-        process.exit();
-    }
-
     // console success, arguments[0] - folderPath
     console.log(i18n('i18nCreateCommand-success', {
         folderPath: arguments[0]
-    }));
+    }, userLanguage, true));
 }
 
 export default {
