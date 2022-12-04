@@ -32,6 +32,26 @@ const i18nObj = {};
 const i18nBuildInObj = {};
 
 /**
+ * getI18nTable - Get i18n library virtual table object
+ *
+ * @export
+ * @const
+ * @function
+ * @param { string } [i18nTableKey = 'default'] - I18n library virtual table object key
+ * @throws { RangeError } - Throw when the given i18n library virtual table keyword does not exist
+ * */
+export const getI18nTable = function (i18nTableKey = 'default') {
+    switch (i18nTableKey) {
+        case 'default':     return i18nObj;
+        case 'build-in':    return i18nBuildInObj;
+        default:
+            throw RangeError(i18n('ReferenceError-getI18nTable', {
+                tableKey: i18nTableKey
+            }, userLanguage, true));
+    }
+}
+
+/**
  * readI18nFile
  *
  * @const
@@ -178,6 +198,7 @@ export const i18n = function (
 }
 
 export default {
+    getI18nTable,
     i18nInit,
     i18n
 }
