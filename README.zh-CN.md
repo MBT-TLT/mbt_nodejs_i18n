@@ -9,11 +9,19 @@
 
 # 开发日志
 - v1.0.0
-    - 完成 mbt_nodejs_i18n 核心开发
+  - 完成 mbt_nodejs_i18n 核心开发
 - v1.0.1
-    - 更新相关测试代码
-- v1.0.2
-    - 更新 CLI 相关功能
+  - 更新相关测试代码
+- v1.0.2(已废弃)
+  - 更新 CLI 相关功能
+- v1.0.2.1
+  - 修复一个在非包本体路径下且不存在相关 i18n 文件时调用自身 i18n 所导致无限回调的致命错误
+  - 新增 i18n 内置库设计, 目前暂时仅用于供给 mbt_nodejs_i18n 自身防止出现无限回调异常使用, 未来版本考虑提供一些常用的语句翻译
+  - i18n 函数新增 isUseBuildInLibrary 可选参数, 默认为 false, 用于指定当前语句是使用 i18n 内置库还是项目 i18n 库
+  - i18nInit 函数新增 i18nTable 可选参数, 默认为 项目 i18n 库对象, 用于指定初始化或重置哪一个 i18n 库对象
+  - 新增 getI18nTable 函数, 用于获取哪一个 i18n 库的虚拟表对象
+    - 提供 i18nTableKey 可选参数(string), 目前仅提供 `default` 与 `build-in`, 默认为 `default`, 意为获取项目 i18n 库的虚拟表对象
+  - <span style="color: cyan">前向兼容更新, 该更新不会影响原有使用</span>
 
 # 未来计划
  - 兼容 CommonJS
@@ -175,7 +183,36 @@ const c = i18n('test', {
 console.log(c);
 ```
 
-## 5、重置 i18n 对象
+## 5、指定是否使用 i18n 内置库
+在 v1.0.2.1 版本开始, mbt_nodejs_i18n 新增了 i18n 内置库设计, 你可以使用一些 mbt_nodejs_i18n 所提供的 i18n 翻译
+
+假设 mbt_nodejs_i18n i18n 内置库(即 mbt_nodejs_i18n/i18n 中) 有 en-US.json 与 zh-CN.json 两个 i18n 相关文件:
+```json
+{
+    "test": "this is a ${ a }"
+}
+```
+```json
+{
+    "test": "这是一段${ a }"
+}
+```
+
+示例:
+```javascript
+const d = i18n('test', {
+    a: '文本'
+}, 'zh-CN', true);
+
+const e = i18n('test', {
+    a: '文本'
+}, 'en-US', true);
+
+// will show "这是一段文本 this is a 文本" in your console
+console.log(d, e);
+```
+
+## 6、重置 i18n 对象
 MBT_Nodejs_i18n 所提供的 i18nInit 函数除了用于实现上文提到的初始化功能, 还可以用于随时重置 i18n 对象
 
 应用场景: 
@@ -185,6 +222,8 @@ MBT_Nodejs_i18n 所提供的 i18nInit 函数除了用于实现上文提到的初
 那么以上场景发生后, 你可以主动调用 i18nInit 函数来重置 i18n 对象
 
 <span style="color: orange">【注意：调用 i18nInit 将会重新读取并解析给定的 i18n 文件夹下的所有 i18n 文件, 这是一个很耗费性能的过程】</span>
+
+<span style="color: red">【警告：i18nInit 提供了一个可选参数用于初始化或重置指定的 i18n 库虚拟表对象, 但为了保证正常运行, 请不要使用其去初始化或重置 MBT_Nodejs_i18n i18n 内置库虚拟对象 !】</span>
 
 ---
 <b>如果你在使用中发现了任何异常, 在此表示抱歉, 请你第一时间提交 Issues 并详细描述异常发生的条件与使用场景, 我们将尽快排查并修复相关异常</b>

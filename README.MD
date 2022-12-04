@@ -9,11 +9,19 @@ A lightweight Nodejs i18n plug-in developed by the MBT_TLT team
 
 # Dev Log
 - v1.0.0
-    - Complete mbt_nodejs_i18n core development
+  - Complete mbt_nodejs_i18n core development
 - v1.0.1
-    - Update related test code
-- v1.0.2
-    - Update CLI related features
+  - Update related test code
+- v1.0.2(deprecate)
+  - Update CLI related features
+- v1.0.2.1
+  - Fixed a fatal bug that caused infinite callbacks by calling its own i18n in a path other than the package ontology and where no associated i18n file existed
+  - New i18n built-in library design, currently only used to supply mbt_nodejs_i18n itself to prevent the occurrence of infinite callback exception use, future version consider to provide some common statement translation
+  - i18n function added isUseBuildInLibrary Optional argument, which defaults to false, to specify whether the current statement uses the i18n built-in library or the project i18n library
+  - i18nInit function added the i18nTable optional parameter, which defaults to the project i18n library object and specifies which i18n library object to initialize or reset
+  - Added the getI18nTable function to get the virtual table object of which i18n library
+    - The i18nTableKey optional(string) argument is provided. Currently, only 'default' and 'build-in' are provided. The default is 'default', which means to get the virtual table object of the project i18n library
+  - <span style="color: cyan">Forward compatible updates that do not affect original usage</span>
 
 # Feature
 - Compatible with CommonJS
@@ -177,7 +185,37 @@ const c = i18n('test', {
 console.log(c);
 ```
 
-## 5. Reset i18n object
+## 5. Specifies whether to use the i18n built-in library
+Since v1.0.2.1, mbt_nodejs_i18n has added the i18n built-in library design. 
+You can use some of the i18n translations provided by mbt_nodejs_i18n
+
+Assume that mbt_nodejs_i18n The i18n built-in library (that is, mbt_nodejs_i18n/i18n) has two i18N-related files, en-US.json and zh-CN.json:
+```json
+{
+    "test": "this is a ${ a }"
+}
+```
+```json
+{
+    "test": "这是一段${ a }"
+}
+```
+
+Example:
+```javascript
+const d = i18n('test', {
+    a: '文本'
+}, 'zh-CN', true);
+
+const e = i18n('test', {
+    a: '文本'
+}, 'en-US', true);
+
+// will show "这是一段文本 this is a 文本" in your console
+console.log(d, e);
+```
+
+## 6. Reset i18n object
 In addition to the initialization function mentioned above, the i18nInit function provided by MBT_Nodejs_i18n can also be used to reset i18n objects at any time.
 
 Application scenarios:
@@ -187,6 +225,8 @@ Application scenarios:
 After the above scenario occurs, you can actively call the i18nInit function to reset the i18n object.
 
 <span style="color: orange">[note: calling i18nInit will re-read and parse all i18n files under the given i18n folder, which is a performance-consuming process]</span>
+
+<span style="color: red">[warning: i18nInit provides an optional parameter to initialize or reset the specified i18n library virtual table object, but to ensure normal operation, don't use it to initialize or reset the MBT_Nodejs_i18n i18n built-in library virtual object !]</span>
 
 ---
 <b>If you find any exception in use, please submit the Issues as soon as possible and describe in detail the conditions and usage scenarios of the exception. We will check and fix the relevant exception as soon as possible.</b>
